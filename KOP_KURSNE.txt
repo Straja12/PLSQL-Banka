@@ -1,0 +1,21 @@
+create or replace PACKAGE KOP_KURSNE AS 
+
+  /* TODO enter package declarations (types, exceptions, methods etc) here */ 
+  type R_kurs is record (
+  
+    valuta    valute.id_valute%type,
+    os_valuta kurs_u_valuti.val_id_valute%type,
+    kupovni   kurs_u_valuti.kls_kupovni%type,
+    srednji   kurs_u_valuti.kls_srednji%type,
+    prodajni  kurs_u_valuti.kls_prodajni%type
+    );
+   
+  type T_kurs is table of R_kurs index by binary_integer;
+  
+  V_kurs T_kurs;
+  
+  procedure kopija_kursne_liste ( P_kurs T_kurs , P_IDBANK BANKA.ID_BANKE%type);
+  
+  
+
+END KOP_KURSNE;

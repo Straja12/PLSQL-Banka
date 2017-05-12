@@ -1,0 +1,13 @@
+create or replace PACKAGE BODY GLB_UKIDANJE AS
+
+  procedure kreiranje_racuna(P_ID_RAC ukidanje.id_racuna%type, P_RACUN_UK out ukidanje.uk_naracun%type) AS
+  BEGIN
+    
+    
+    P_RACUN_UK := '111-'||P_ID_RAC||-'45';
+    
+    
+    
+  END kreiranje_racuna;
+
+END GLB_UKIDANJE;

@@ -1,0 +1,45 @@
+
+--dnevno unosenje pokusaj
+BEGIN
+    DBMS_SCHEDULER.CREATE_JOB (
+            job_name => '"E13543"."DAILY_UNOS"',
+            job_type => 'STORED_PROCEDURE',
+            job_action => 'E13543.KOP_KURSNE.KOPIJA_KURSNE_LISTE',
+            number_of_arguments => 2,
+            start_date => NULL,
+            repeat_interval => 'FREQ=DAILY;BYHOUR=11;BYMINUTE=0;BYSECOND=0',
+            end_date => NULL,
+            enabled => FALSE,
+            auto_drop => FALSE,
+            comments => 'dnevno unosenje');
+
+    DBMS_SCHEDULER.SET_JOB_ARGUMENT_VALUE( 
+             job_name => '"E13543"."DAILY_UNOS"', 
+             argument_position => 1, 
+             argument_value => null);
+    DBMS_SCHEDULER.SET_JOB_ARGUMENT_VALUE( 
+             job_name => '"E13543"."DAILY_UNOS"', 
+             argument_position => 2, 
+             argument_value => '111');
+         
+     
+ 
+    DBMS_SCHEDULER.SET_ATTRIBUTE( 
+             name => '"E13543"."DAILY_UNOS"', 
+             attribute => 'logging_level', value => DBMS_SCHEDULER.LOGGING_OFF);
+      
+  
+    
+    DBMS_SCHEDULER.enable(
+             name => '"E13543"."DAILY_UNOS"');
+END;
+
+
+--sequenceri
+   CREATE SEQUENCE  "E13543"."DS_INC"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 10 CACHE 20 NOORDER  NOCYCLE ;
+
+   CREATE SEQUENCE  "E13543"."KURS_INC"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 70 CACHE 20 NOORDER  NOCYCLE ;
+ 
+    CREATE SEQUENCE  "E13543"."SEQ_ASI"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 50 CACHE 20 NOORDER  NOCYCLE ;
+
+CREATE SEQUENCE  "E13543"."SEQ_DRS"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 48 CACHE 20 NOORDER  NOCYCLE ;

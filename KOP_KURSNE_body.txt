@@ -1,0 +1,67 @@
+create or replace PACKAGE BODY KOP_KURSNE AS
+
+  procedure kopija_kursne_liste ( P_kurs T_kurs,P_IDBANK BANKA.ID_BANKE%type) AS
+  
+    V_kursna_lista Kursna_lista%rowtype;
+    
+    V_idKURS integer;
+    
+    V_kurs T_kurs;
+    i integer :=0; 
+    j integer :=0;
+  
+  BEGIN
+    -- TODO: Implementation required for procedure KOP_KURSNE.kopija_kursne_liste
+    
+     
+    select * into V_kursna_lista from KURSNA_LISTA where
+    id_kursne_liste = (select max(id_kursne_liste) from KURSNA_LISTA where ID_BANKE = P_IDBANK); 
+    
+  
+    
+    
+     V_idKURS:= kurs_inc.nextval;
+    
+   insert into kursna_lista values ( V_idKURS, V_kursna_lista.id_banke, sysdate,  V_idKURS, sysdate);
+     
+    
+    for rec in (select * from kurs_u_valuti where id_kursne_liste = V_kursna_lista.id_kursne_liste) loop
+    
+         V_kurs(i).valuta := rec.id_valute;
+         V_kurs(i).os_valuta := rec.val_id_valute;
+         V_kurs(i).kupovni := rec.kls_kupovni;
+         V_kurs(i).srednji := rec.kls_srednji; 
+         V_kurs(i).prodajni := rec.kls_prodajni;
+         
+         i:= i+ 1;
+         
+        end loop; 
+          
+       
+        
+        j := V_kurs.first;
+        
+        while j<= V_kurs.last loop
+          
+          i := P_kurs.first;
+            
+            while i<= P_kurs.last loop
+              if(V_kurs(j).valuta = P_kurs(i).valuta ) then
+                V_kurs(j) := P_kurs(i);
+              end if;
+              i := P_kurs.next(i);
+            end loop;
+          
+          
+           insert into kurs_u_valuti values (V_idKURS, V_kurs(j).valuta,V_kurs(j).os_valuta, V_kurs(j).kupovni
+          ,V_kurs(j).srednji,V_kurs(j).prodajni);
+          
+          j:= V_kurs.next(j);
+        end loop;
+        
+     
+    
+    
+  END kopija_kursne_liste;
+
+END KOP_KURSNE;

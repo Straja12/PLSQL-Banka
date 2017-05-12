@@ -1,0 +1,65 @@
+create or replace PACKAGE BODY GLB_UPIS_DSR AS
+
+  PROCEDURE IZVOD_PARSIRANJE(P_racun ANALITIKA_IZVODA.ASI_RACDUZ%type , P_racun_kor out analitika_izvoda.asi_racduz%type,
+P_tip_greske out number ) AS
+
+ V_racun_banke varchar2(30);
+ V_kontr_broj varchar2(30);
+ v_string ANALITIKA_IZVODA.ASI_RACDUZ%type;
+ 
+
+ exc8 exception;
+ i integer := 0;
+
+BEGIN
+  
+  
+
+ V_racun_banke := substr(P_racun,1,3); -- sifra banke
+
+
+P_racun_kor := substr(P_RACUN,instr(P_racun,'-',1,1)+1,instr(P_racun,'-',1,2)-instr(P_racun,'-',1,1)-1); -- racun korisnika
+
+
+ 
+  V_kontr_broj := substr(P_racun,-2); -- kontrolni broj
+
+ 
+ for rec in (select sifra_banke from banka where 
+   sifra_banke = V_racun_banke ) loop 
+   
+    i := i+1;
+   end loop;
+   
+  if ( i = 0 ) then
+    P_tip_greske := 8;
+   
+    raise exc8;
+  else
+     P_tip_greske :=1;
+  end if;
+  
+  i:=0; 
+  
+   for rec in (select id_racuna from racuni_pravnih_lica where
+   id_racuna  = P_racun_kor ) loop
+   
+    i := i+1;
+   end loop;
+   
+   if ( i = 0 ) then
+    P_tip_greske := 8;
+     
+    raise exc8;
+  else
+    P_tip_greske :=1;
+  end if;
+exception
+
+when exc8 then
+  raise_application_error(-20000,'Pogresno unet racun');
+  
+  
+  END IZVOD_PARSIRANJE;
+
+END GLB_UPIS_DSR;

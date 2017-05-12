@@ -1,0 +1,71 @@
+
+	insert into ANALITIKA_IZVODA (ASI_BROJSTAVKE, DSR_IZVOD, VPL_OZNAKA,
+
+ASI_DUZNIK, ASI_SVRHA,
+ASI_POVERILAC, ASI_DATPRI, ASI_DATVAL,
+ASI_RACDUZ ,ASI_MODODOB, ASI_HITNO, ASI_IZNOS,
+ASI_TIPGRESKE) values ( seq_asi.nextval, seq_drs.nextval , 1,
+'pera','dug',
+'banka', sysdate,sysdate, '111-150150-85',97, 1, 2000 ,1);
+
+insert into ANALITIKA_IZVODA (ASI_BROJSTAVKE, DSR_IZVOD, VPL_OZNAKA,
+
+ASI_DUZNIK, ASI_SVRHA,
+ASI_POVERILAC, ASI_DATPRI, ASI_DATVAL,
+ASI_RACDUZ ,ASI_MODODOB, ASI_HITNO, ASI_IZNOS,
+ASI_TIPGRESKE) values ( 10, 3 , 1,
+'pera','dug',
+'banka', sysdate,sysdate, '111-154150-85',97, 1, 2000 ,1);
+
+insert into ANALITIKA_IZVODA (ASI_BROJSTAVKE, DSR_IZVOD, VPL_OZNAKA,
+
+ASI_DUZNIK, ASI_SVRHA,
+ASI_POVERILAC, ASI_DATPRI, ASI_DATVAL,
+ASI_RACDUZ ,ASI_MODODOB, ASI_HITNO, ASI_IZNOS,
+ASI_TIPGRESKE) values ( 10, 3 , 1,
+'pera','dug',
+'banka', sysdate,sysdate, '111-154150-85',98, 1, 2000 ,1);
+
+insert into ANALITIKA_IZVODA (ASI_BROJSTAVKE, DSR_IZVOD, VPL_OZNAKA,
+                              ASI_DUZNIK, ASI_SVRHA, 
+                              ASI_POVERILAC, ASI_DATPRI, ASI_DATVAL,
+                              ASI_RACDUZ, ASI_MODZAD,
+                              ASI_RACPOV, ASI_MODODOB,
+                              ASI_HITNO, ASI_IZNOS, ASI_TIPGRESKE
+                              ) values 
+                              
+                              ( seq_ASI.nextval,  seq_DRS.nextval, 2,
+                                 'Mitar', 'uplata',
+                                'BANKA1', sysdate,sysdate,
+                                '111-150150-85', 97,
+                                '111-200200-44',97,
+                                1, 3000,1);
+
+insert into ukidanje values (1,150150,sysdate,'111-200200-94');
+
+begin
+
+VIP_korisnik_unos;
+
+end;
+
+declare
+
+  P_kursevi kop_kursne.T_kurs;
+
+  i integer := 0;
+begin
+
+  P_kursevi(0).valuta := 3;
+  P_kursevi(0).os_valuta :=1;
+  P_kursevi(0).kupovni := 153;
+  P_kursevi(0).sredni := 200;
+  P_kursevi(0).prodajni := 230;
+  
+  
+  kop_kursne.kopija_kursne_liste(P_kursevi,111);
+   
+ 
+end;
+
+

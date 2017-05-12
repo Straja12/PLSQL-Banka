@@ -1,0 +1,14 @@
+create or replace PACKAGE GLB_UKIDANJE AS 
+
+  /* TODO enter package declarations (types, exceptions, methods etc) here */ 
+  P_IZNOS number;
+  P_RACUN varchar2(20);
+  P_UKIDR varchar2(20); 
+  
+  P_IMED varchar2(20);
+  P_IMEP varchar2(20); 
+  
+  procedure kreiranje_racuna(P_ID_RAC ukidanje.id_racuna%type, P_RACUN_UK out ukidanje.uk_naracun%type);
+  
+
+END GLB_UKIDANJE;

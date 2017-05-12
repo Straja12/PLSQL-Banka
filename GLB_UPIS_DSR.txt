@@ -1,0 +1,24 @@
+create or replace PACKAGE GLB_UPIS_DSR AS 
+
+  type T_tokenizer is table of varchar(30) index by binary_integer;
+
+  
+
+  /* TODO enter package declarations (types, exceptions, methods etc) here */ 
+  P_STAROSTANJE DNEVNO_STANJE_RACUNA.DSR_PRETHODNO%type; --duznik kesa na racunu
+  P_NOVOSTANJE  DNEVNO_STANJE_RACUNA.DSR_PRETHODNO%type;
+  P_NATERET     DNEVNO_STANJE_RACUNA.DSR_NATERET%type;
+  
+  P_DUZNIK DNEVNO_STANJE_RACUNA%rowtype;
+  P_UPLATILAC DNEVNO_STANJE_RACUNA%rowtype;
+   
+ 
+  
+  
+  
+  
+  PROCEDURE IZVOD_PARSIRANJE(P_racun ANALITIKA_IZVODA.ASI_RACDUZ%type ,P_racun_kor out analitika_izvoda.asi_racduz%type,
+P_tip_greske out number );
+
+
+END GLB_UPIS_DSR;
